@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" >
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>REGISTRAR</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<style>
+.btn-material{width: 180px;padding: 7px;}
+#created{background-color: rgb(54, 255, 47);padding: 15px;border-radius: 5px}
+#existe{background-color: rgb(255, 47, 47);padding: 15px;border-radius: 5px;color: white;}
+</style>
+<body onload="startDB()">
+<div class="conteMenu">
+  <span class="icon back" onclick="window.history.back()"></span>
+  <div class="titMenu">REGISTRAR INVITADO</div>
+  <span></span>
+</div>
+
+<div class="formularioV1">
+  <div class="contInput">
+    <input id="nom" required class="input_ef" type="text" placeholder=""/>
+    <label class="label_ef">Nombre</label>
+  </div>
+  <div class="contInput">
+    <input id="cel" required class="input_ef" type="number" placeholder=""/>
+    <label class="label_ef">Celular</label>
+  </div>
+  <div class="botones">
+    <button class="btn-material info" id="btnGuar" onclick="registrar()">REGISTRAR</button>
+  </div>
+
+  <div id="created" style="display: none;" class="tituloForm">El Invitado ya fue Registado con Exito</div>
+  <div id="existe"  class="tituloForm" style="display:none;">Falla de Registro</div>
+</div>
+
+<script src="/js/apiBakend.js"></script>
+<script src="/js/mainDB.js"></script>
+<script>
+
+async function registrar(){
+  document.getElementById("existe").style.display="none"
+  loadData()
+  let val = {}
+  val["id"] = new Date().getTime().toString()
+  val["cel"] = document.getElementById("cel").value
+  val["nom"] = document.getElementById("nom").value
+  val["con"] = false
+  val["msa"] = ""
+
+  let reg = await apiPostJsonCrud("created",val,"invitados")
+  if(reg.msg=="success"){
+    document.getElementById("created").style.display=""
+    document.getElementById("btnGuar").classList.add("hiden")
+    await write_DB(val,'invitados')
+  }
+  if(reg.msg=="fail"){
+    document.getElementById("existe").style.display=""
+    document.getElementById("btnGuar").classList.add("hiden")
+  }
+  successDat()
+}
+
+async function init_m(){ }
+</script>
+</body>
+</html>
