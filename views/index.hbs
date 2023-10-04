@@ -10,17 +10,18 @@
 <div id="datos" data-id="{{id}}" data-nom="{{nom}}"></div>
 
 <div id="intro" class="intro">
-<div class="txt1 tituloInt">
-  <div>TEXTO A MODFICAR TEXTO A MODFICAR</div>
-  <div>TEXTO A MODFICAR</div>
-</div>
 <div class="txt1 txtCentro">
   <div>Nuestra</div>
   <div class="boda">Boda</div>
 </div>
+<div class="txt1 invitado">
+    <div id="nom">{{nom}}</div>
+    <div>Tenemos el gusto de Invitarle</div>
+    <div>a nuestra Boda</div>
+</div>
 <div class="txt1 click pulse" onclick="animacionIn()">Click</div>
 <div class="txt1 fechaCorto">2. 12. 2023</div>
-<svg width="100%" height="100%" viewBox="0 0 1080 1920" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+<svg class="circulo" width="100%" height="100%" viewBox="0 0 1080 1920" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
   <g transform="matrix(1.09525,0,0,1.09525,-59.0857,-75.3073)">
       <g>
           <clipPath id="_clip1">
@@ -298,14 +299,25 @@
   </div>
   <div>2023</div>
 </div>
+<div>
+
+</div>
+ 
 <div class="txt1 dir">
-  <div>AV. BALLIVIAN, ESQ. CALLE 8, ZONA CALACOTO</div>
-  <div>JARDIN JAPONES</div>
-  <span onclick="link('ubicacion')" class="icon gogleMap"></span>
-</div> 
-<div onclick="link('confirmar')" class="txt1  asit">CONFIRMA TU ASISTENCIA</div>
-<div onclick="link('informacion')" class="txt1  info">INFORMACION</div>
-<svg width="100%" height="100%" viewBox="0 0 1080 1920" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+  <div class="">
+    <div>Salon</div>
+    <div>Evento</div>
+    <span onclick="link('salon')" class="icon gogleMap"></span>
+  </div> 
+  <div class="">
+    <div>Recepcion</div>
+    <div>Regalos</div>
+    <span onclick="link('regalos')" class="icon gogleMap"></span>
+  </div>
+</div>
+<div onclick="link('confirmar')" class="txt1 btn-material  asit">Confirma tu Asistencia</div>
+<div onclick="link('informacion')" class="txt1 btn-material  info">Informacion</div>
+<svg class="cuadrado" width="100%" height="100%" viewBox="0 0 1080 1920" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
   <g transform="matrix(1.06214,0,0,1.06214,-25.6629,-40.7729)">
     <path d="M138.079,399.256C137.597,423.778 137.114,448.301 136.631,472.823" style="fill:none;stroke:rgb(212,192,154);stroke-width:1.18px;"/>
     <path d="M67.881,443.564C69.856,443.755 73.807,444.137 76.73,443.892C79.652,443.646 82.883,443.617 85.415,442.089C88.446,440.259 92.201,436.378 94.919,432.912C97.896,429.116 100.845,423.326 103.276,419.311C105.382,415.834 107.243,412.203 109.503,408.824C112.425,404.454 117.232,398.063 120.81,393.093C124.193,388.392 128.711,382.131 130.97,379" style="fill:none;stroke:rgb(212,192,154);stroke-width:1.18px;"/>
@@ -432,8 +444,9 @@ function init_m(){
     setTimeout(()=>{ localStorage.setItem("actCon","") },1000)
   }
   let datos = document.getElementById("datos")
-  console.log(datos.dataset.id)
-  console.log(datos.dataset.nom)
+  localStorage.setItem("nom",datos.dataset.nom)
+  localStorage.setItem("id",datos.dataset.id)
+  
 }
 </script>
 </body>

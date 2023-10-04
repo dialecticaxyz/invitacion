@@ -20,12 +20,9 @@ router.get('/:token',[],(req, res)=>{
 router.post("/created",[],crudFun.created);
 router.post("/readAll",[],crudFun.readAll);
 router.post('/readTime',[],crudFun.readTime);
-router.post('/readTimeUser',midFun.verifyLog,crudFun.readTimeUser);
 router.post('/readTimeTime',midFun.verifyLog,crudFun.readTimeTime);
-router.post('/readTimeTimeUser',midFun.verifyLog,crudFun.readTimeTimeUser);
 router.post("/readId",midFun.verifyLog,crudFun.readId);
-router.post('/readUser',midFun.verifyLog,crudFun.readUser);
-router.post('/update',midFun.verifyLog,crudFun.update);
+router.post('/update',[],crudFun.update);
 router.post('/delet',midFun.verifyLog,crudFun.delet);
 router.post("/readIds",midFun.verifyLog,crudFun.readIds);
 router.post("/count",midFun.verifyLog,crudFun.count);
