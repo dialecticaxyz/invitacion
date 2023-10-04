@@ -27,4 +27,14 @@ router.post('/delet',midFun.verifyLog,crudFun.delet);
 router.post("/readIds",midFun.verifyLog,crudFun.readIds);
 router.post("/count",midFun.verifyLog,crudFun.count);
 
+router.post('/login',[],logFun.login);
+router.post('/updatePassword',midFun.verifyLog,logFun.updatePassword);
+
+router.post("/createdAdminInit",[],useFun.createdAdminInit);
+router.post("/createdUse",[],useFun.createdUse);
+
+router.post("/sizeDB",midFun.verifyLog, admFun.sizeDB);
+router.post("/sizeDisk",midFun.verifyLog, admFun.sizeDisk);
+router.post("/clearDisk",midFun.verifyLog, admFun.clearDisk);
+
 module.exports = router;

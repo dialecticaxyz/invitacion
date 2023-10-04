@@ -4,16 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Lista Usuarios</title>
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/main.css">
 </head>
 <style>
-.btn-material{color: black;}  
 </style>
 <body onload="startDB()">
 <div class="conteMenu">
   <span class="icon back" onclick="window.history.back()"></span>
-  <div onclick="lnk('formReg')" class="btn-material">Nuevo Invitado</div> 
-  <span id="conection" class="icon cloudDowRed" onclick="sincroBD('invitados','m')"></span>
+  <div onclick="lnk('formReg')" class="btn-material">Nuevo Usuario</div> 
+  <span class="icon cloudDow" onclick="sincroBD('usuarios','m')"></span>
 </div>
 
 <div class="buscador">
@@ -25,8 +24,7 @@
     <thead>
       <tr>
         <th>Nombre</th>
-        <th>Celular</th>
-        <th></th>
+        <th>Rol</th>
         <th></th>
       </tr>
     </thead>
@@ -34,24 +32,20 @@
   </table>
 </div>
 
-<script src="/js/apiBakend.js"></script>
-<script src="/js/mainDB.js"></script>
+<script src="../js/main.js"></script>
 <script>
 var items =[]
-async function renderTab(){
-  let dat = await read_DB("invitados")
+async function renderTabla(){
+  let dat = await read_DB("usuarios")
   let outerHTML = '';
   for (let i = 0; i < dat.length; i++) {
     let el = dat[i];
     outerHTML+=`
     <tr id="${el.id}">
-      <td>${el.nom}</td>
-      <td>${el.cel}</td>
+      <td data-itm id="ref_${el.id}">${el.nom}</td>
+      <td >${el.rol}</td>
       <td>
         <span onclick="editarUser('${el.id}')" class="icon PEN">
-      </td>
-      <td>
-        <span onclick="sendInvitacion('${el.cel}','${el.id}')" class="icon whatsaApp">
       </td>
     </tr>`
     items.push({"id":el.id,"txt":el.nom}) 
@@ -60,18 +54,12 @@ async function renderTab(){
 }
 
 function editarUser(id){
-  localStorage.setItem('idEdit', id);
+  localStorage.setItem('userIDedit', id);
   lnk("formEdit")
 }
 
-function sendInvitacion(cel,id){
-  var a = document.createElement("a");
-  a.href = "https://api.whatsapp.com/send?phone=+591"+cel+"&text="+url+"/"+id
-  a.click()
-}
 function init_m(){  
-  renderTab() 
-  openSocket("sincINV");
+  renderTabla() 
 }
 </script>
 </body>

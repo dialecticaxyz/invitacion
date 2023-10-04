@@ -860,6 +860,13 @@ th {
   text-align: center;
 }
 .btn-material:focus {	outline:none; }
+.redBtn{ background-color: rgb(255, 0, 0); color: rgb(255, 255, 255); }
+.verdeBtn{ background-color: rgb(0, 176, 80); color: rgb(255, 255, 255); }
+.naranjaBtn{ background-color: rgb(255, 70, 37);color: #ffffff; }
+.azulBtn{ background-color: rgb(47, 68, 252); color: white; }
+.dangerBtn{ background-color: red;color: white; }
+.infoBtn{ background-color: rgb(5, 139, 0); color: white; }
+.blancoBtn{ background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); }
 /*botones btn-material*/
 /*animacion placeholder input*/
 .contInput{

@@ -74,14 +74,12 @@ function openSocket(act){
 function closeConnection(){ setTimeout(openSocket(sinAct),500) }
 function openConnection(){
   if(socket.readyState===WebSocket.OPEN){
-    if(sinAct=="sincVEN"){ sincroBD('ventas','a') }
-    if(sinAct=="sincINV"){ sincroBD('inventarios','a') }
+    if(sinAct=="sincINV"){ sincroBD('invitados','a') }
   }
 }
 function readMessage(e){ 
   console.log(e.data); 
-  if(sinAct=="sincVEN"){ sincroBD('ventas','r') }
-  if(sinAct=="sincINV"){ sincroBD('inventarios','r') }
+  if(sinAct=="sincINV"){ sincroBD('invitados','r') }
 }
 function sendMessage(){
   return new Promise(function(resolve,reject){
