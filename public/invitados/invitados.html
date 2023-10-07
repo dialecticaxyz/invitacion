@@ -8,6 +8,7 @@
 </head>
 <style>
 .btn-material{color: black;}  
+.number{width: 30px;}
 </style>
 <body onload="startDB()">
 <div class="conteMenu">
@@ -26,6 +27,8 @@
       <tr>
         <th>Nombre</th>
         <th>Celular</th>
+        <th></th>
+        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -53,6 +56,12 @@ async function renderTab(){
       <td>
         <span onclick="sendInvitacion('${el.cel}','${el.id}')" class="icon whatsaApp">
       </td>
+      <td>
+        <input class="number" id="mesa${el.id}" value="${el.msa}" type="number"  autocomplete="off"/>
+      </td>
+      <td>
+        <span onclick="saveMesa('${el.id}')" class="icon save">
+      </td>
     </tr>`
     items.push({"id":el.id,"txt":el.nom}) 
   }
@@ -62,6 +71,18 @@ async function renderTab(){
 function editarUser(id){
   localStorage.setItem('idEdit', id);
   lnk("formEdit")
+}
+
+function saveMesa(id){
+  let ms = document.getElementById("mesa"+id).value
+  loadData()
+  apiPostJsonCrud("update",{"id":id,"msa":ms},"invitados").then((r)=>{
+    if(r.msg=="success"){
+      update_DB(id,{"msa":ms},'invitados').then(()=>{
+        successDat()
+      })
+    }
+  })
 }
 
 function sendInvitacion(cel,id){
