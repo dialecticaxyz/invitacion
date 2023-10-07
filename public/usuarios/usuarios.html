@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Lista Usuarios</title>
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <style>
+.btn-material{color: black;}   
 </style>
 <body onload="startDB()">
 <div class="conteMenu">
@@ -32,7 +33,8 @@
   </table>
 </div>
 
-<script src="../js/main.js"></script>
+<script src="/js/apiBakend.js"></script>
+<script src="/js/mainDB.js"></script>
 <script>
 var items =[]
 async function renderTabla(){

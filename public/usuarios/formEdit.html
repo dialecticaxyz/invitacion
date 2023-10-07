@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>EDITAR</title>
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <style>
 .btn-material{width: 100px;padding: 7px;}
@@ -12,7 +12,7 @@
 <body onload="startDB()">
 <div class="conteMenu">
   <span class="icon back" onclick="window.history.back()"></span>
-  <div class="titMenu">FORMULARIO DE EDICION</div>
+  <div class="titMenu">EDICION</div>
   <span></span>
 </div>
 
@@ -27,9 +27,7 @@
       <select class="selector" data-user id="rol">
         <option value="Ninguno" selected>Ninguno</option>
         <option value="Administrar">Administrar</option>
-        <option value="Vender">Vender</option>
-        <option value="Almacen">Almacen</option>
-        <option value="Delivery">Delivery</option>
+        <option value="Usuario">Usuario</option>
       </select>
       <div class="select-icon">
         <svg focusable="false" viewBox="0 0 104 128" width="25" height="35" class="icon">
@@ -44,7 +42,8 @@
   </div>
 </div>
 
-<script src="../js/main.js"></script>
+<script src="/js/apiBakend.js"></script>
+<script src="/js/mainDB.js"></script>
 <script>
 let userIDedit
 
