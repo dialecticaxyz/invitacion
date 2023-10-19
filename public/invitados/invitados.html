@@ -93,6 +93,13 @@ function saveMesa(id){
   })
 }
 
+let tx = `
+  ¡Nos casamos!
+  Y nos encantaría compartir ese día contigo. 
+  https://invitacion-v1.glitch.me
+  ¡No puedes faltar!
+`
+if(!storageBolean("textInvitacion")){localStorage.setItem("textInvitacion",tx)}
 
 function chageList(e,id){
   if(e.target.checked){ sendList.push(id) }else{ sendList=sendList.filter(animal=>animal!=id) }
@@ -128,6 +135,7 @@ function sendInvitacion(cel,id){
 function init_m(){  
   renderTab() 
   openSocket("sincINV");
+  
 }
 </script>
 </body>
