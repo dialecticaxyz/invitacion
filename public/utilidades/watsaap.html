@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>WhatsApp</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.qrcode{
+  text-align: center;
+  margin: 20px;
+}
+.qrcode img{
+  margin: auto;
+  box-shadow: 0 0 10px rgba(67, 67, 68, 0.25);
+  padding: 4px;
+}
+.formularioV1{width: 200px;}
+.texto{text-align: center;}
+textarea {
+  width:90%;
+  background-color:#EDF8F5;
+  border: solid 1px #1ebea5;
+  box-shadow:unset;
+  border-radius:5px;
+  padding:10px;
+  min-height:110px;
+}
+
+
+</style>
+</head>
+<body onload="startDB();">
+<div class="qrcode">
+  <img src="../img/loader.gif"  id="qrcode" style="width: 250px;">  
+</div>    
+<div class="texto">
+  <textarea id="input">
+  ¡Nos casamos!
+  Y nos encantaría compartir ese día contigo. 
+  https://invitacion-v1.glitch.me
+  ¡No puedes faltar!
+  </textarea>
+</div>
+
+<div class="formularioV1">
+  <div class="contInput">
+    <input id="phone" required class="input_ef" type="number" placeholder=""/>
+    <label class="label_ef">Celular</label>
+  </div>
+</div>
+<div class="botones">
+  <button class="btn-material" id="senManual" onclick="senManual()">Enviar Manual</button>
+  <button class="btn-material" id="senBoot" onclick="senBoot()">Enviar Boot</button>
+</div>
+
+<script src="../js/mainDB.js"></script>	
+<script src="../js/apiBakend.js"></script>	
+<script>
+
+async function senBoot(){
+  var input = document.getElementById("input").value
+  var phone = document.getElementById("phone").value
+  let dat = {"message":input,"number":phone}
+  let rs = await sendMsg(dat)
+  console.log(rs)
+}
+
+function senManual(){
+  var input = document.getElementById("input").value
+  var res = encodeURIComponent(input);
+  var phone = document.getElementById("phone").value
+  var whatsappApiUrl = 'https://api.whatsapp.com/send?text=';
+  let msg = whatsappApiUrl + res + '&phone=' + phone;
+  var a = document.createElement("a");
+  a.href = msg
+  a.click()
+}
+
+document.getElementById("input").addEventListener("keyup",(e)=>{
+  localStorage.setItem("textInvitacion",e.target.value)
+})
+
+const qrcode = document.getElementById("qrcode");
+function init_m(){
+  /*
+  fetch(urlQr).then(rsp=>{ if(rsp.ok){ rsp.json().then(d=>{ 
+    console.log(d) 
+    if(d.qr==false){ qrcode.setAttribute("src","../img/check.svg") }else{ qrcode.setAttribute("src",d.qr) }
+  })}});
+  if(storageBolean("textInvitacion")){
+    document.getElementById("input").value = localStorage.getItem("textInvitacion")
+  }
+  */  
+}  
+</script>
+</body>
+</html>

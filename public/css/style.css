@@ -13,7 +13,6 @@
 body{
   background-color: #ffffff;
 }
-
 /**** fuentes ****/
 @font-face{
   font-family: SalingCinta;
@@ -59,7 +58,6 @@ body{
   font-family: ChampagneLimousines;
   font-weight: bold;
   font-size: 17px;
-  background-color: white;
   padding: 5px;
 }
 .invitado>div{ padding: 5px; }
@@ -150,29 +148,65 @@ body{
   padding-top: 6px;
   padding-bottom: 0px;
 }
-.dir{
-  width: 300px;
-  top: 490px;
+
+.ubic{
+  width: fit-content;
+  top: 540px;
   font-family: ChampagneLimousines;
-  font-weight: 500;
   font-size: 15px;
+  cursor: pointer;
+}
+.asit{
+  width: fit-content;
+  top: 570px;
+  font-family: ChampagneLimousines;
+  font-size: 15px;
+  cursor: pointer;
+}
+.cron{
+  width: fit-content;
+  top: 600px;
+  font-family: ChampagneLimousines;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.dir{
+  position: absolute;
+  bottom: 1000px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 80%;
+  font-family: ChampagneLimousines;
+  font-weight: bolder;
+  font-size: 18px;
   display: flex;
   justify-content: space-around;
+  background-color: rgb(92, 75, 49);
+  padding: 30px;
+  color: rgb(255, 231, 153);
+  border-radius: 5px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+  0 2px 2px 0 rgba(0, 0, 0, 0.14),
+  0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  opacity: 1;
+  transition: all 1s ease-in-out;
+}
+
+.txtUbi{
+  width: 100px;
+  text-align: center;
 }
 .gogleMap{
   margin-top: 5px;
 }
-.asit{
-  width: 200px;
-  top: 570px;
-  font-family: ChampagneLimousines;
-  font-size: 12px;
-}
-.cron{
-  width: 200px;
-  top: 615px;
-  font-family: ChampagneLimousines;
-  font-size: 12px;
+.closeUbi{
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  font-size: 25px;
+  font-weight: bolder;
 }
 /**** PORTADA ****/
 .aparecer{

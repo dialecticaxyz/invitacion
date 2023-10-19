@@ -17,6 +17,16 @@ function apiPostJsonRut(metodo,dat){//requests json token - respons json
     fetch(url+`/`+metodo,{method:'post',headers:{'Accept':'application/json,text/plain','Content-Type':'application/json','x-access-token':token},body:JSON.stringify(dat)}).then(rsp=>{ if(rsp.ok){ rsp.json().then(d=>{ resolve(d) })}});
   })
 }
+let urlInv =  "https://invitacion-v1.glitch.me"
+//let urlQr = "https://botwat-v1.glitch.me/scan-qr"  
+let urlQr = "http://localhost:8000/scan-qr"
+//let url = "http://botwat-v1.glitch.me/send-message"
+let urlSend = "http://localhost:8000/send-message"
+function sendMsg(dat){
+  return new Promise(function(resolve,reject){
+    fetch(urlSend,{method:'post',headers:{'Accept':'application/json,text/plain','Content-Type':'application/json'},body:JSON.stringify(dat)}).then(rsp=>{ if(rsp.ok){ rsp.json().then(d=>{ resolve(d) })}});
+  })
+}
 /////////// SINCRO DATA BASE //////////
 function timCol(tim){ return (localStorage.getItem(tim)==null||localStorage.getItem(tim)=="")?0:parseInt(localStorage.getItem(tim)) }
 function elemtDif(d1,d2){
@@ -35,6 +45,7 @@ async function sincroBD(col,tp){
   for (let i = 0; i < datos.length; i++) {
     let item = datos[i];
     await write_DB(item,col)
+    if(item["time"]>timCol(col+"Time")){ localStorage.setItem(col+"Time",item["time"]) }
   }
   var datLocal = await read_DB(col)
   if(datCloud["count"]<datLocal.length){ 

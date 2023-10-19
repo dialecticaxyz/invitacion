@@ -38,13 +38,12 @@ canvas {
   margin-bottom: 15px;
 }
 .foot{font-weight: bold;}
-
 </style>
 </head>
 <body onload="startDB();">
 <div class="conteMenu">
   <span class="icon back" onclick="window.history.back()"></span>
-  <div class="titMenu">Tamaño de Base de Datos</div>
+  <div class="titMenu">Datos</div>
   <span></span>  
 </div> 
 
@@ -78,17 +77,12 @@ canvas {
     </tr>
     <tr class="foot">
       <td>Datos</td>
-      <td id="dat"></td>
+      <td id="tot"></td>
       <td></td>
     </tr>
     <tr class="foot">
       <td>Disco</td>
       <td id="dis"></td>
-      <td></td>
-    </tr>
-    <tr class="foot">
-      <td>TOTAL</td>
-      <td id="tot"></td>
       <td></td>
     </tr>
   </tbody>
@@ -99,7 +93,6 @@ canvas {
     <button onclick="clearDisk()" class="btn-material red">LIMPIAR ARCHIVOS TEMPORALES DISCO</button>
   </div>
 </div>
-
 
 <script src="../js/apiBakend.js"></script>
 <script src="../js/mainDB.js"></script>
@@ -219,17 +212,13 @@ function animate() {
   text.innerHTML = Math.round((rotation / Math.PI) * 100) + 0 + "%";
   myReq = requestAnimationFrame(animate);
 }
-setTimeout(()=>{
-  window.cancelAnimationFrame(myReq);
-},3000)
+setTimeout(()=>{  window.cancelAnimationFrame(myReq); },3000)
 /*odometro*/
-
- 
 
 async function datos(){
   loadData()
   //let dk = await apiPostJsonRut("sizeDisk",{}) //bytes
-  let dk = {"disk":1000,"limit":5000000}
+  let dk = {"disk":1000000,"limit":5000000}
   let dt = await apiPostJsonRut("sizeDB",{}) //bytes
   
   successDat()
@@ -238,26 +227,25 @@ async function datos(){
       
     document.getElementById("inv").textContent = fileSize(dt.inv)
     document.getElementById("usu").textContent = fileSize(dt.use)
-    document.getElementById("dat").textContent = fileSize(dt.inv + dt.use)
-    document.getElementById("dis").textContent = fileSize(dk.disk)
-    document.getElementById("tot").textContent = fileSize(tot)
-    
+    document.getElementById("tot").textContent = fileSize(dt.inv + dt.use)
     document.getElementById("invCan").textContent = (dt.cInv)
     document.getElementById("usuCan").textContent = (dt.cUse)
-    
+
+    document.getElementById("dis").textContent = fileSize(dk.disk)
+       
     let data = [
       {name:'Invitados',math: ((dt.inv/tot)*100)},
       {name:'Usuarios',math: ((dt.use/tot)*100)},
       {name:'Disco',math: ((dk.disk/tot)*100)},
     ];
-       
+    render(data)
+
     let limit = dk.limit
     document.getElementById("capac").textContent = (limit/(1024*1024)).toFixed(0)
-
-    let por = parseFloat(((tot/limit)*100).toFixed(1))
+    let por = parseFloat(((dk.disk/limit)*100).toFixed(1))
     totalRot = ((por / 100) * 180 * Math.PI) / 180;
+
     animate()
-    render(data)
   },1500)
 } 
 

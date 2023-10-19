@@ -29,6 +29,7 @@
   </div>
   <div class="botones">
     <button class="btn-material info" id="btnGuar" onclick="registrar()">REGISTRAR</button>
+    <button class="btn-material hiden" id="reset" onclick="window.location.reload()">Registrar Nuevo</button>
   </div>
 
   <div id="created" style="display: none;" class="tituloForm">El Invitado ya fue Registado con Exito</div>
@@ -48,11 +49,13 @@ async function registrar(){
   val["nom"] = document.getElementById("nom").value
   val["con"] = false
   val["msa"] = ""
+  val["sen"] = false
 
   let reg = await apiPostJsonCrud("created",val,"invitados")
   if(reg.msg=="success"){
     document.getElementById("created").style.display=""
     document.getElementById("btnGuar").classList.add("hiden")
+    document.getElementById("reset").classList.remove("hiden")
     await write_DB(val,'invitados')
   }
   if(reg.msg=="fail"){

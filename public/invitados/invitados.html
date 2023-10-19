@@ -8,12 +8,12 @@
 </head>
 <style>
 .btn-material{color: black;}  
-.number{width: 30px;}
+.number{width: 30px;transform: translateY(-5px);}
 </style>
 <body onload="startDB()">
 <div class="conteMenu">
   <span class="icon back" onclick="window.history.back()"></span>
-  <div onclick="lnk('formReg')" class="btn-material">Nuevo Invitado</div> 
+  <div onclick="sendWatBoot()" class="btn-material">Enviar Web</div> 
   <span id="conection" class="icon cloudDowRed" onclick="sincroBD('invitados','m')"></span>
 </div>
 
@@ -25,12 +25,13 @@
   <table>
     <thead>
       <tr>
+        <th>N°</th>
+        <th></th>
         <th>Nombre</th>
         <th>Celular</th>
         <th></th>
         <th></th>
-        <th></th>
-        <th></th>
+        <th>Mesa</th>
       </tr>
     </thead>
     <tbody id="listaDitem"></tbody>
@@ -40,14 +41,23 @@
 <script src="/js/apiBakend.js"></script>
 <script src="/js/mainDB.js"></script>
 <script>
-var items =[]
+var sendList = []
+var items = []
 async function renderTab(){
+  sendList = []
   let dat = await read_DB("invitados")
   let outerHTML = '';
   for (let i = 0; i < dat.length; i++) {
     let el = dat[i];
+    let ck
+    if(el.sen){ck=""}else{ck="checked";sendList.push(el.id)}
+    let cn
+    if(el.con){cn="rgb(175,255,175)"}else{cn="rgb(255,255,255)"}
+
     outerHTML+=`
-    <tr id="${el.id}">
+    <tr id="${el.id}" style="background-color:${cn};">
+      <td>${i+1}</td>
+      <td><input ${ck} onchange="chageList(event,'${el.id}')" type="checkbox"/></td>
       <td>${el.nom}</td>
       <td>${el.cel}</td>
       <td>
@@ -57,12 +67,10 @@ async function renderTab(){
         <span onclick="sendInvitacion('${el.cel}','${el.id}')" class="icon whatsaApp">
       </td>
       <td>
-        <input class="number" id="mesa${el.id}" value="${el.msa}" type="number"  autocomplete="off"/>
-      </td>
-      <td>
+        <input class="number" id="mesa${el.id}" value="${el.msa}" type="number" autocomplete="off"/>
         <span onclick="saveMesa('${el.id}')" class="icon save">
       </td>
-    </tr>`
+     </tr>`
     items.push({"id":el.id,"txt":el.nom}) 
   }
   document.getElementById("listaDitem").innerHTML = outerHTML 
@@ -85,10 +93,40 @@ function saveMesa(id){
   })
 }
 
+
+function chageList(e,id){
+  if(e.target.checked){ sendList.push(id) }else{ sendList=sendList.filter(animal=>animal!=id) }
+}
+async function sendWatBoot(){
+  loadData()
+  for (let i = 0; i < sendList.length; i++) {
+    const id = sendList[i];
+    let input = localStorage.getItem("textInvitacion").replace(urlInv,(urlInv+"/"+id));
+    let inv = await read_ID_DB(id,'invitados')
+    let dat = {"message":input,"number":inv.cel}
+    let rs = await sendMsg(dat)
+    console.log(rs)
+    if(rs.status){
+      let edit = {"id":id,"sen":true}
+      let up = await apiPostJsonCrud("update",edit,"invitados")
+      if(up.msg=="success"){ 
+        await update_DB(id,edit,"invitados")
+      }
+    }
+  }
+  successDat("r")
+}
+
 function sendInvitacion(cel,id){
+  let input = localStorage.getItem("textInvitacion").replace(urlInv,(urlInv+"/"+id));
+  let res = encodeURIComponent(input);
+  let msg = 'https://api.whatsapp.com/send?text='+res+'&phone=+591'+cel;
+ 
+  /*
   var a = document.createElement("a");
   a.href = "https://api.whatsapp.com/send?phone=+591"+cel+"&text="+url+"/"+id
   a.click()
+  */
 }
 function init_m(){  
   renderTab() 

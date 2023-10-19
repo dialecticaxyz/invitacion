@@ -28,12 +28,34 @@
   font-weight: 500;
   font-size: 15px;
 }
+#nom{font-weight: bold;padding: 3px;}
 .btn-material{
   width: 120px;
   top: 300px;
   font-family: ChampagneLimousines;
   font-weight: 500;
   font-size: 15px;
+}
+.graciasMod{
+  position: absolute;
+  top: -50vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 80%;
+  height: 200px;
+  font-family: ChampagneLimousines;
+  font-weight: bolder;
+  font-size: 18px;
+  background-color: rgb(92, 75, 49);
+  padding: 30px;
+  color: rgb(255, 231, 153);
+  border-radius: 5px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+  0 2px 2px 0 rgba(0, 0, 0, 0.14),
+  0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  opacity: 1;
+  transition: all 1s ease-in-out;
 }
 </style>
 </head>
@@ -45,16 +67,12 @@
     <div>CONFIRMAR SU ASISTENCIA</div>
     <div>POR FAVOR</div>
   </div>
-  <button class="txt1 btn-material" onclick="confirmar()">CONFIRMAR</button>  
+  <button class="txt1 btn-material" onclick="confirmarAsi()">CONFIRMAR</button>  
 </div>
 
 <div id="gracias"  class="txt1 txtGracias hiden">
+  <div>Gracias Por Confirmar su Asistencia</div>
   <div id="nom"></div>
-  <div>Texto de Agradecimiento</div>
-  <div>Lorem Ipsum is simply dummy text of the 
-    printing and typesetting industry. Lorem Ipsum has 
-    been the industry's standard dummy text ever since
-  </div>
 </div>
 
 <svg width="100%" height="100%" viewBox="0 0 1080 1920" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
@@ -164,19 +182,44 @@
   </g>
 </svg>
 </div>
+<div class="graciasMod" id="graciasMod">
+	<div class="closeUbi" onclick="closeUbi()">x</div>
+  <div>
+    Gracias por confirmar tu asistencia. 
+    Queremos que está sea una linda experiencia y la disfrutes cómodamente, 
+    por lo que te rogamos que no compartas la invitación con otra persona.
+  </div> 
+  <br>
+  <div>Válido para 1 persona persona.</div>
+</div>
 <script src="/js/apiBakend.js"></script>
 <script src="/js/mainDB.js"></script>
 <script>
 
-function confirmar(){
-  loadData()
-  let id = localStorage.getItem("id")
-  apiPostJsonCrud("update",{"id":id,"con":true},"invitados").then((r)=>{
-    if(r.msg=="success"){
-      localStorage.setItem("confirmado",true)
-      successDat("r")  
-    }
-  })
+function confirmarAsi(){
+  let r = confirm("Desea confirmar Su asistencia..?")
+  if(r){
+    loadData()
+    let id = localStorage.getItem("id")
+    apiPostJsonCrud("update",{"id":id,"con":true},"invitados").then((r)=>{
+      if(r.msg=="success"){
+        //localStorage.setItem("confirmado",true)
+        successDat()
+        graciasMod() 
+      }
+    })
+  }
+}
+
+function graciasMod(){
+	document.getElementById("graciasMod").style.top = "30vh"
+}
+function closeUbi(){
+	document.getElementById("graciasMod").style.top = "-50vh"
+
+  document.getElementById("confirma").classList.add("hiden")
+  document.getElementById("gracias").classList.remove("hiden")
+  document.getElementById("nom").textContent = storage("nom")
 }
 
 function init_m(){
