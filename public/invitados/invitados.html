@@ -121,12 +121,9 @@ function sendInvitacion(cel,id){
   let input = localStorage.getItem("textInvitacion").replace(urlInv,(urlInv+"/"+id));
   let res = encodeURIComponent(input);
   let msg = 'https://api.whatsapp.com/send?text='+res+'&phone=+591'+cel;
- 
-  /*
   var a = document.createElement("a");
-  a.href = "https://api.whatsapp.com/send?phone=+591"+cel+"&text="+url+"/"+id
+  a.href = msg
   a.click()
-  */
 }
 function init_m(){  
   renderTab() 

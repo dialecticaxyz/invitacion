@@ -91,7 +91,8 @@ function init_m(){
   if(storageBolean("textInvitacion")){
     document.getElementById("input").value = localStorage.getItem("textInvitacion")
   }
-  */  
+  */
+  localStorage.setItem("textInvitacion",document.getElementById("input").value) 
 }  
 </script>
 </body>
