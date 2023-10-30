@@ -891,6 +891,7 @@ function init_m(){
   }
   let datos = document.getElementById("datos")
   localStorage.setItem("nom",datos.dataset.nom)
+  localStorage.setItem("msa",datos.dataset.msa)
   localStorage.setItem("id",datos.dataset.id)
   document.getElementById("preload").style.display = "none"//preload
   fetch(url+"/onServer").then(r=>r.json()).then(d=>console.log(d))

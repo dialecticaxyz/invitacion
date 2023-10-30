@@ -60,6 +60,7 @@
 /*datos resividos de app.js lectura de exel*/	
 var items = []
 function renderExel(dat){
+	loadData()
 	for (let i = 1; i < dat.length; i++) {
 		const fila = dat[i];
 		const n = fila[0] 
@@ -86,6 +87,7 @@ function rederItem(){
     </tr>`  
 	}
   document.querySelector("#itemCompra").innerHTML = outerHTML;
+  successDat()
 }
 /*datos resividos de app.js lectura de exel*/
 

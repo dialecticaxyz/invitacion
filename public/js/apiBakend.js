@@ -89,7 +89,10 @@ function openConnection(){
   if(socket.readyState===WebSocket.OPEN){
     console.log("open ws")
     //if(sinAct=="sincINV"){ sincroBD('invitados','a') }
-    if(sinAct=="readMsgInv"){ sendMessage(JSON.stringify({"rut":"readMsgInv"})) }
+    if(sinAct=="readMsgInv"){ 
+      sendMessage(JSON.stringify({"rut":"readMsgInv"})) 
+      loadData()
+    }
   }
 }
 function readMessage(e){ 
@@ -97,6 +100,7 @@ function readMessage(e){
   if(dat.rut=="readMsgInv"){
     document.getElementById("inputMsg").value = dat.dat
     localStorage.setItem("inputMsg",dat.dat)
+    successDat()
   }
   //if(sinAct=="sincINV"){ sincroBD('invitados','r') }
 }
