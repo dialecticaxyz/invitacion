@@ -9,11 +9,12 @@
 <style>
 .btn-material{color: black;}  
 .number{width: 30px;transform: translateY(-5px);}
+.mesa{text-align: center;}
 </style>
 <body onload="startDB()">
 <div class="conteMenu">
   <span class="icon back" onclick="window.history.back()"></span>
-  <div class="titMenu">Invitados</div> 
+  <div onclick="sendWatBoot()" class="btn-material">Enviar Invitacion Boot</div> 
   <span id="conection" class="icon cloudDowGrend" onclick="sincroBD('invitados','m')"></span>
 </div>
 
@@ -26,10 +27,11 @@
     <thead>
       <tr>
         <th>N°</th>
+        <th></th>
         <th>Nombre</th>
         <th>Celular</th>
-        <th></th>
         <th>Mesa</th>
+        <th></th>
       </tr>
     </thead>
     <tbody id="listaDitem"></tbody>
@@ -50,76 +52,57 @@ async function renderTab(){
     let ck
     if(el.sen){ck=""}else{ck="checked";sendList.push(el.id)}
     let cn
-    if(el.con){cn="rgb(175,255,175)"}else{cn="rgb(255,255,255)"}
+    if(el.sen){cn="rgb(175,255,175)"}else{cn="rgb(255,255,255)"}
 
     outerHTML+=`
     <tr id="${el.id}" style="background-color:${cn};">
       <td>${i+1}</td>
+      <td><input ${ck} onchange="chageList(event,'${el.id}')" type="checkbox"/></td>
       <td>${el.nom}</td>
       <td>${el.cel}</td>
+      <td class="mesa">${el.msa}</td>
       <td>
-        <span onclick="editarUser('${el.id}')" class="icon PEN">
+        <span onclick="sendInvitacion('${el.cel}','${el.id}')" class="icon whatsaApp">
       </td>
-      <td>
-        <input class="number" id="mesa${el.id}" value="${el.msa}" type="number" autocomplete="off"/>
-        <span onclick="saveMesa('${el.id}')" class="icon save">
-      </td>
-     </tr>`
+    </tr>`
     items.push({"id":el.id,"txt":el.nom}) 
   }
   document.getElementById("listaDitem").innerHTML = outerHTML 
 }
 
-function editarUser(id){
-  localStorage.setItem('idEdit', id);
-  lnk("formEdit")
-}
-
-function saveMesa(id){
-  let ms = document.getElementById("mesa"+id).value
-  loadData()
-  apiPostJsonCrud("update",{"id":id,"msa":ms},"invitados").then((r)=>{
-    if(r.msg=="success"){
-      update_DB(id,{"msa":ms},'invitados').then(()=>{
-        successDat()
-      })
-    }
-  })
-}
-
-let tx = `
-  ¡Nos casamos!
-  Y nos encantaría compartir ese día contigo. 
-  https://invitacion-v1.glitch.me
-  ¡No puedes faltar!
-`
-if(!storageBolean("textInvitacion")){localStorage.setItem("textInvitacion",tx)}
-
+/*send boot wat*/
 function chageList(e,id){
   if(e.target.checked){ sendList.push(id) }else{ sendList=sendList.filter(animal=>animal!=id) }
 }
 async function sendWatBoot(){
   loadData()
-  for (let i = 0; i < sendList.length; i++) {
-    const id = sendList[i];
-    let input = localStorage.getItem("textInvitacion").replace(urlInv,(urlInv+"/"+id));
-    let inv = await read_ID_DB(id,'invitados')
-    let dat = {"message":input,"number":inv.cel}
-    let rs = await sendMsg(dat)
-    console.log(rs)
-    if(rs.status){
-      let edit = {"id":id,"sen":true}
-      let up = await apiPostJsonCrud("update",edit,"invitados")
-      if(up.msg=="success"){ 
-        await update_DB(id,edit,"invitados")
+  let qr = await apiPost(urlBoot+"/scan-qr",{})
+  if(qr.qr=="connected"){
+    for (let i = 0; i < sendList.length; i++) {
+      const id = sendList[i];
+      let input = localStorage.getItem("inputMsg").replace(urlInv,(urlInv+"?q="+id));
+      let inv = await read_ID_DB(id,'invitados')
+      let dat = {"message":input,"number":inv.cel}
+      let rs = await apiPost(urlBoot+'/send-message',dat)
+      console.log(rs)
+      if(rs.status){
+        let edit = {"id":id,"sen":true}
+        let up = await apiPostJsonCrud("update",edit,"invitados")
+        if(up.msg=="success"){ 
+          await update_DB(id,edit,"invitados")
+        }
       }
     }
-  }
-  successDat("r")
+    successDat("r")
+  }else{
+    successDat()
+    alert("boot no iniciado")
+  }  
 }
+/*send boot wat*/
 
 function sendInvitacion(cel,id){
-  let input = localStorage.getItem("textInvitacion").replace(urlInv,(urlInv+"/"+id));
+  let input = localStorage.getItem("inputMsg").replace(urlInv,(urlInv+"?q="+id));
   let res = encodeURIComponent(input);
   let msg = 'https://api.whatsapp.com/send?text='+res+'&phone=+591'+cel;
   var a = document.createElement("a");
@@ -129,7 +112,6 @@ function sendInvitacion(cel,id){
 function init_m(){  
   renderTab() 
   openSocket("sincINV");
-  
 }
 </script>
 </body>

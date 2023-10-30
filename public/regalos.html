@@ -16,7 +16,7 @@
 .enlaceMap{
   width: 100%;
   margin-bottom: 10px;
-  top: 27vw;
+  top: 32vw;
 }
 .enlaceMap>a{
   background-color: #ffffff;
@@ -37,7 +37,7 @@
   font-size: 17px;
 }
 .mapa{
-  top: 40vw;
+  top: 42vw;
   width: 60%;
   height: calc(100vh - 300px);
   margin: auto;
@@ -58,8 +58,11 @@
 .svg{ margin-top: -70px; }
 </style>
 </head>
-<body>
+<body  onload="init_m()">
+<div id="preload" class="block"><div class="lds-ripple"><div></div><div></div></div></div>    
 <div class="txt1 titDir">
+  <div>RECEPCION DE REGALOS</div>
+  <br>
   <div>Av Ballivián & Calle 8</div>
   <div>C. 8 de Calacoto 7851, La Paz</div>
 </div>
@@ -176,7 +179,11 @@
     <path d="M93.754,911.97L108.588,1567.64L885.893,1557.25" style="fill:none;stroke:rgb(212,192,154);stroke-width:1.18px;"/>
   </g>
 </svg>
-
+<script>
+async function init_m(){
+  document.getElementById("preload").style.display = "none"
+}
+</script>
 </body>
 </html>
 

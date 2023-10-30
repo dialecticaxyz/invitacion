@@ -1,3 +1,40 @@
+.lds-ripple {
+  display: inline-block;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 40%;
+  left: 48%;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
+}
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #fff;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {animation-delay: -0.5s;}
+@keyframes lds-ripple {
+  0% {top: 50px;left: 50px; width: 0; height: 0; opacity: 1;  }
+  100% {top: 0px; left: 0px; width: 100px;height: 100px;opacity: 0;}
+}
+.block {
+  width: 100%;
+  height: 100vh;
+  background: none;
+  box-shadow: 0 0px 0px rgba(0,0,0,0.2);
+  border-radius: 2px;
+  padding: 10px;
+  transform: scale(1);
+  display: inline-block;
+  background-color: rgb(32, 32, 32);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
 /* variables reset */
 *, *::after, *::before {
   margin: 0;
@@ -884,6 +921,7 @@ th {
   cursor: pointer;
   border-radius: 5px;
   text-align: center;
+  text-decoration: none;
 }
 .btn-material:focus {	outline:none; }
 .redBtn{ background-color: rgb(255, 0, 0); color: rgb(255, 255, 255); }

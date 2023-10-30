@@ -46,6 +46,7 @@
 			  <th>N°</th>
 			  <th>Nombre</th>
 			  <th>Celular</th>
+				<th>Mesa</th>
 		  </tr>
 		</thead>
 		<tbody id="itemCompra"></tbody>
@@ -63,10 +64,11 @@ function renderExel(dat){
 		const fila = dat[i];
 		const n = fila[0] 
 		items.push({
-			"id":"invitado"+n,
+			"id": ( (fila[2]==null?0: parseInt(fila[2]) ) + 101010101).toFixed(0),
 			"nExl":n,
 			"nom":( fila[1]==null?"":fila[1] ),
-			"cel":( fila[2]==null?"":fila[2] )
+			"cel":( fila[2]==null?"":fila[2] ),
+			"msa":( fila[3]==null?"":fila[3] )
 		})
 	}
 	rederItem()
@@ -80,6 +82,7 @@ function rederItem(){
 		  <td>${el.nExl}</td>
       <td>${el.nom}</td>
       <td>${el.cel}</td>
+			<td>${el.msa}</td>
     </tr>`  
 	}
   document.querySelector("#itemCompra").innerHTML = outerHTML;
@@ -93,7 +96,7 @@ async function guardarInv(){
 		var item = items[i];
     delete item["nExl"]
     item["con"] = false
-    item["msa"] = ""
+  	item["sen"] = false
     let crea = await apiPostJsonCrud("created",item,"invitados")
     if(crea.msg=="success"){
 			await write_DB(item,'invitados')

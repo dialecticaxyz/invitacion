@@ -27,6 +27,10 @@
     <input id="cel" required class="input_ef" type="number" placeholder=""/>
     <label class="label_ef">Celular</label>
   </div>
+  <div class="contInput">
+    <input id="msa" required class="input_ef" type="number" placeholder=""/>
+    <label class="label_ef">Mesa</label>
+  </div>
   <div class="botones">
     <button class="btn-material info" id="btnGuar" onclick="registrar()">REGISTRAR</button>
     <button class="btn-material hiden" id="reset" onclick="window.location.reload()">Registrar Nuevo</button>
@@ -47,8 +51,8 @@ async function registrar(){
   val["id"] = new Date().getTime().toString()
   val["cel"] = document.getElementById("cel").value
   val["nom"] = document.getElementById("nom").value
+  val["msa"] = document.getElementById("msa").value
   val["con"] = false
-  val["msa"] = ""
   val["sen"] = false
 
   let reg = await apiPostJsonCrud("created",val,"invitados")

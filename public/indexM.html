@@ -40,14 +40,11 @@
 </style>
 </head>
 <body onload="init_m()">
-<div id="datos" data-id="{{id}}" data-nom="{{nom}}"></div>
-<!--
-{{#if user}}
-<div class="conf">
-  <a class="btnConfg" href="/login/login.html"><span class="iconUSECONFG"></span></a>
-</div>
-{{/if}}
--->
+<div id="preload" class="block"><div class="lds-ripple"><div></div><div></div></div></div>    
+<div id="datos" data-id="" data-nom="" data-msa=""></div>
+<div id="conf"></div>
+
+
 <div id="intro" class="intro">
 <div class="txt1 txtCentro">
   <div>Nuestra</div>
@@ -873,6 +870,7 @@
   </div>
 </div>
 
+<script src="js/apiBakend.js"></script>
 <script src="js/script.js"></script>
 <script>
 function animacionIn(){
@@ -894,7 +892,8 @@ function init_m(){
   let datos = document.getElementById("datos")
   localStorage.setItem("nom",datos.dataset.nom)
   localStorage.setItem("id",datos.dataset.id)
-  
+  document.getElementById("preload").style.display = "none"//preload
+  fetch(url+"/onServer").then(r=>r.json()).then(d=>console.log(d))
 }
 function ubicacion(){
 	document.getElementById("dir").style.bottom = "100px"

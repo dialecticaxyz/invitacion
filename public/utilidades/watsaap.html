@@ -26,48 +26,89 @@ textarea {
   padding:10px;
   min-height:110px;
 }
-
-
 </style>
 </head>
 <body onload="startDB();">
+
 <div class="qrcode">
-  <img src="../img/loader.gif"  id="qrcode" style="width: 250px;">  
-</div>    
+  <img src="../img/cross.svg"  id="qrcode" style="width: 250px;">  
+</div> 
+<div class="botones">
+  <button class="btn-material" id="resetBoot" onclick="activarBoot()">Reiniciar Boot</button>
+</div>
 <div class="texto">
-  <textarea id="input">
-    ¡Nos casamos!
-    Y nos encantaría compartir ese día contigo. 
-    https://invitacion-v1.glitch.me
-    ¡No puedes faltar!
-  </textarea>
+  <textarea id="inputMsg" onkeyup="saveTxtInv(event)"></textarea>
 </div>
 
 <div class="formularioV1">
   <div class="contInput">
     <input id="phone" required class="input_ef" type="number" placeholder=""/>
-    <label class="label_ef">Celular</label>
+    <label class="label_ef">Celular (Bolivia)</label>
   </div>
 </div>
 <div class="botones">
   <button class="btn-material" id="senManual" onclick="senManual()">Enviar Manual</button>
   <button class="btn-material" id="senBoot" onclick="senBoot()">Enviar Boot</button>
 </div>
-
+<div class="botones">
+  <a class="btn-material" href="../invitados/invitadosSendMsg.html">Enviar Mensaje</a>
+</div>
 <script src="../js/mainDB.js"></script>	
 <script src="../js/apiBakend.js"></script>	
+
 <script>
+let qrcode = document.getElementById("qrcode")
+function conecBootWs(){
+  let socketBoot = new WebSocket(urlBootWs);
+  socketBoot.addEventListener('message', bootMessage);
+  document.getElementById("resetBoot").classList.add("hiden")
+}
+async function activarBoot(){
+  let r = await apiPost(urlBoot+"/activeBoot",{})
+  if(r.msg=="success"){ 
+    console.log("activeBoot") 
+    qrcode.setAttribute("src","../img/loader.gif")
+    conecBootWs()
+  }
+}
+function bootMessage(e){ 
+  //console.log(e.data); 
+  let dat = JSON.parse(e.data)
+  if(dat.rut=="sendQr"){ 
+    qrcode.setAttribute("src",dat.dat) 
+    document.getElementById("resetBoot").classList.add("hiden")
+  }
+  if(dat.rut=="openSession"){ qrcode.setAttribute("src","../img/check.svg") }
+  if(dat.rut=="closeSession"){ 
+    qrcode.setAttribute("src","../img/cross.svg") 
+    document.getElementById("resetBoot").classList.remove("hiden")
+  }
+}
+async function getQr(){
+  let qr = await apiPost(urlBoot+"/scan-qr",{})
+  if(qr.qr=="noQr"){qrcode.setAttribute("src","../img/cross.svg");return }
+  if(qr.qr=="connected"){
+    qrcode.setAttribute("src","../img/check.svg")
+    conecBootWs()
+    return 
+  }
+  if(qr.qr){ 
+    conecBootWs()
+    qrcode.setAttribute("src",qr.qr) 
+  }
+} 
 
 async function senBoot(){
-  var input = document.getElementById("input").value
+  loadData()
+  var input = document.getElementById("inputMsg").value
   var phone = document.getElementById("phone").value
   let dat = {"message":input,"number":phone}
-  let rs = await sendMsg(dat)
-  console.log(rs)
+  let rs = await apiPost(urlBoot+'/send-message',dat)
+  if(rs.status==true){successDat()}
 }
 
 function senManual(){
-  var input = document.getElementById("input").value
+  var input = document.getElementById("inputMsg").value
   var res = encodeURIComponent(input);
   var phone = document.getElementById("phone").value
   var whatsappApiUrl = 'https://api.whatsapp.com/send?text=';
@@ -77,21 +118,15 @@ function senManual(){
   a.click()
 }
 
-document.getElementById("input").addEventListener("keyup",(e)=>{
-  localStorage.setItem("textInvitacion",e.target.value)
-})
+async function saveTxtInv(e){
+  let tx = e.target.value
+  localStorage.setItem("inputMsg",tx)
+  await sendMessage(JSON.stringify({"rut":"writeMsgInv","dat":tx}))
+}
 
-const qrcode = document.getElementById("qrcode");
 function init_m(){
-  /*
-  fetch(urlQr).then(rsp=>{ if(rsp.ok){ rsp.json().then(d=>{ 
-    console.log(d) 
-    if(d.qr==false){ qrcode.setAttribute("src","../img/check.svg") }else{ qrcode.setAttribute("src",d.qr) }
-  })}});
-  if(storageBolean("textInvitacion")){
-    document.getElementById("input").value = localStorage.getItem("textInvitacion")
-  }
-  */
+  openSocket("readMsgInv");
+  getQr()
 }  
 </script>
 </body>

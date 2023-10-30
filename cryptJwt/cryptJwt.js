@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('../config.js');
+const config = require('../utilidades/config');
 
 function passwordCript(password){
   return new Promise(function(resolve,reject){
@@ -21,7 +21,7 @@ function bcryptCompare(password,paswCript){
 function jwtVerify(token){
   return new Promise(function(resolve,reject){
     jwt.verify(token,config.SECRET,(err,dec)=>{
-      if(err){ resolve(err) }else{ resolve(dec) }
+      resolve(dec) 
     });
   })
 }

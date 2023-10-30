@@ -5,6 +5,13 @@ if(location.href.split("/")[0]=="http:"){
 }else{
   serverURL = 'wss://'+(location.href.split("/")[2]).split(":")[0]
 }
+//let urlBoot = "http://localhost"
+//let urlBootWs = 'ws://localhost'
+let urlBoot = "https://botwat-v1.glitch.me"
+let urlBootWs = 'wss://botwat-v1.glitch.me'
+
+let urlInv = 'https://angela-y-carlos.glitch.me'
+
 const token = JSON.parse((localStorage.getItem("datUser")==null||localStorage.getItem("datUser")=="")?"{}":localStorage.getItem("datUser")).token
 function apiPostJsonCrud(metodo,dat,coleccion){//requests json token - respons json
   return new Promise(function(resolve,reject){
@@ -17,14 +24,9 @@ function apiPostJsonRut(metodo,dat){//requests json token - respons json
     fetch(url+`/`+metodo,{method:'post',headers:{'Accept':'application/json,text/plain','Content-Type':'application/json','x-access-token':token},body:JSON.stringify(dat)}).then(rsp=>{ if(rsp.ok){ rsp.json().then(d=>{ resolve(d) })}});
   })
 }
-let urlInv =  "https://invitacion-v1.glitch.me"
-//let urlQr = "https://botwat-v1.glitch.me/scan-qr"  
-let urlQr = "http://localhost:8000/scan-qr"
-//let url = "http://botwat-v1.glitch.me/send-message"
-let urlSend = "http://localhost:8000/send-message"
-function sendMsg(dat){
+function apiPost(url,dat){//requests json token - respons json
   return new Promise(function(resolve,reject){
-    fetch(urlSend,{method:'post',headers:{'Accept':'application/json,text/plain','Content-Type':'application/json'},body:JSON.stringify(dat)}).then(rsp=>{ if(rsp.ok){ rsp.json().then(d=>{ resolve(d) })}});
+    fetch(url,{method:'post',headers:{'Accept':'application/json,text/plain','Content-Type':'application/json','x-access-token':token},body:JSON.stringify(dat)}).then(rsp=>{ if(rsp.ok){ rsp.json().then(d=>{ resolve(d) })}});
   })
 }
 /////////// SINCRO DATA BASE //////////
@@ -85,19 +87,22 @@ function openSocket(act){
 function closeConnection(){ setTimeout(openSocket(sinAct),500) }
 function openConnection(){
   if(socket.readyState===WebSocket.OPEN){
-    if(sinAct=="sincINV"){ sincroBD('invitados','a') }
+    console.log("open ws")
+    //if(sinAct=="sincINV"){ sincroBD('invitados','a') }
+    if(sinAct=="readMsgInv"){ sendMessage(JSON.stringify({"rut":"readMsgInv"})) }
   }
 }
 function readMessage(e){ 
-  console.log(e.data); 
-  if(sinAct=="sincINV"){ sincroBD('invitados','r') }
+  let dat = JSON.parse(e.data); //console.log(e.data); 
+  if(dat.rut=="readMsgInv"){
+    document.getElementById("inputMsg").value = dat.dat
+    localStorage.setItem("inputMsg",dat.dat)
+  }
+  //if(sinAct=="sincINV"){ sincroBD('invitados','r') }
 }
-function sendMessage(){
+function sendMessage(dat){
   return new Promise(function(resolve,reject){
-    if(socket.readyState===WebSocket.OPEN){ 
-      socket.send("upDB"); 
-      resolve(true)
-    } 
+    if(socket.readyState===WebSocket.OPEN){ socket.send(dat); resolve(true) } 
   })
 }
 /////////// WEBSOCKET CONECCION //////////
