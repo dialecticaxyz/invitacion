@@ -9,7 +9,7 @@
 body{background-color: rgb(244,241,233);}  
 .crono{
   position: absolute;
-  top: 100px;
+  top: 10vh;
   left: 0;
   font-family: GreatVibes-Regular;
   color: var(--tono1);
@@ -22,77 +22,82 @@ body{background-color: rgb(244,241,233);}
   margin: auto;
   position: relative;
 }
-.contIcon{
+.contenIcons{
   position: absolute;
-  text-align: center;
-  font-family: GreatVibes-Regular;
-  font-size: 18px;
-  width: 80px;
-  color: var(--tono1);
+  width: 100%;
+  height: 72vh;
+  top: 15vh;
+  display: grid;
+  align-content: space-between;
+  justify-content: center;
 }
-.imgIcon{width: 70px;}  
+.contIcon{
+  width: 12vh;
+  font-family: GreatVibes-Regular;
+  font-size: 15px;
+  color: var(--tono1);
+  text-align: center;
+}
+.imgIcon{width: 60%;}  
 .matrimonio{
-  left: 90px;
-  top: 150px;
+  transform: translateX(-50px);
 }
 .fotos{
-  right: 90px;
-  top: 250px;
+  transform: translateX(50px);
 }
 .brindis{
-  left: 90px;
-  top: 340px;
+  transform: translateX(-50px);
 }
 .festejo{
-  right: 90px;
-  top: 450px;
+  transform: translateX(50px);
 }
 .cena{
-  left: 90px;
-  top: 560px;
+  transform: translateX(-50px);
 }
-.torta{
-  right: 90px;
-  top: 650px;
+.torta{  
+  transform: translateX(50px);
 }
 </style>
 </head>
 <body onload="init_m()">
 <div id="preload" class="block"><div class="lds-ripple"><div></div><div></div></div></div>
 <div class="crono">CRONOGRAMA</div>
+
 <div class="cuadroCron">
-<div class="contIcon matrimonio">
-  <img class="imgIcon" src="/img/iglesia.png">
-  <div>14:00</div>
-  <div>Ceremonia</div>
-</div>
-<div class="contIcon fotos">
+<div class="contenIcons"> 
+  <div class="contIcon matrimonio">
+    <img class="imgIcon" src="/img/iglesia.png">
+    <div>14:00</div>
+    <div>Ceremonia</div>
+  </div>
+  <div class="contIcon fotos">
   <img class="imgIcon" src="/img/camara.png">
   <div>16:00</div>
   <div>Sesion de fotos</div>
-</div>
-<div class="contIcon brindis">
+  </div>
+  <div class="contIcon brindis">
   <img class="imgIcon" src="/img/brindis.png">
   <div>17:00</div>
   <div>Brindis</div>
-</div>
-<div class="contIcon festejo">
+  </div>
+  <div class="contIcon festejo">
   <img class="imgIcon" src="/img/dance.png">
   <div>18:00</div>
   <div>Festejo</div>
-</div>
-<div class="contIcon cena">
+  </div>
+  <div class="contIcon cena">
   <img class="imgIcon" src="/img/cena.png">
   <div>19:30</div>
   <div>Cena</div>
-</div>
-<div class="contIcon torta">
+  </div>
+  <div class="contIcon torta">
   <img class="imgIcon" src="/img/torta.png">
   <div>21:00</div>
   <div>Torta</div>
-</div>
+  </div>
+</div> 
 
-<svg  viewBox="0 0 940 1960" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+<svg  viewBox="0 0 940 1960" preserveAspectRatio="none" width="100%" height="99%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
   <g transform="matrix(0.996072,0,0,0.996072,-101.282,294.02)">
       <path d="M928.117,1510.99C931.603,1505.88 938.575,1495.65 944.158,1488.24C949.796,1480.76 957.379,1472.44 961.948,1466.08C965.584,1461.01 969.337,1453.92 971.573,1450.04C972.938,1447.66 974.556,1444.38 975.364,1442.75" style="fill:none;stroke:rgb(176,142,107);stroke-width:1.25px;"/>
       <path d="M1005.15,1299.1C1005.52,1291.77 1006.25,1277.11 1006.98,1270.3C1007.41,1266.23 1008.33,1262.19 1009.53,1258.27C1011.05,1253.29 1013.59,1246.24 1016.09,1240.41C1018.64,1234.45 1021.92,1228.13 1024.84,1222.54C1027.61,1217.24 1031.1,1211.55 1033.59,1206.87C1035.76,1202.79 1038.01,1198.74 1039.79,1194.47C1041.73,1189.79 1044.08,1182.46 1045.25,1178.8" style="fill:none;stroke:rgb(176,142,107);stroke-width:1.25px;"/>
