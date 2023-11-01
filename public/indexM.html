@@ -37,6 +37,167 @@
   margin-top: 8px;
 }
 /*boton config*/    
+/**** INTRO ****/
+.intro{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(146, 120, 81);
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+}
+.introContend{
+  max-width: 400px;
+  margin: auto;
+  height: 100vh;
+}
+.circulo{
+  width: 100%;
+  height: 95vh;
+  margin: auto;
+}
+.txtCentro{
+  width: 100%;
+  top: 35vh;
+  font-family: SalingCinta;
+  font-weight: 500;
+  font-size: 90px;
+  line-height: 60px;
+}
+.boda{margin-left: 60px;margin-top: 15px;}
+.invitado{
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
+  font-family: ChampagneLimousines;
+  font-size: 17px;
+  padding: 5px;
+}
+.invitado>div{ padding: 5px; }
+.txtsub2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.txtSub{ 
+  font-family: SalingCinta;
+  font-size: 40px;
+}
+.click{
+  width: 150px;
+  bottom: 20px;
+  font-family: SalingCinta;
+  font-weight: 500;
+  font-size: 60px;
+  cursor: pointer;
+}
+/**** INTRO ****/
+/**** PORTADA ****/
+.portada{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  opacity: 0;
+}
+.cuadrado{ 
+  width: 100%;
+  height: 95vh;
+}
+.titulo1{
+  width: 300px;
+  top: 100px;
+  font-family: ChampagneLimousines;
+  font-weight: 500;
+}
+.nombre{
+  width: 300px;
+  top: 170px;
+  font-family: SalingCinta;
+  font-weight: 500;
+  font-size: 100px;
+  line-height: 60px;
+}
+.and{ margin-left: 50px; }
+.fecha{
+  width: 300px;
+  top: 390px;
+  font-family: ChampagneLimousines;
+  font-weight: 500;
+  color: rgb(212,192,154);
+}
+.dia{
+  display: flex;
+  justify-content: center;
+  margin: 7px;
+}
+.num{
+  font-size: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.cua{
+  width: 70px;
+  border-top: 1.5px rgb(212,192,154) solid;
+  border-bottom: 1.5px rgb(212,192,154) solid;
+  padding-top: 6px;
+  padding-bottom: 0px;
+}
+.btnMenu{
+  width: 100%;
+  text-align: center;
+  top: 500px;
+}
+.btnMenu>div{
+  width: fit-content;
+  font-family: ChampagneLimousines;
+  font-size: 15px;
+  cursor: pointer;
+  margin: auto;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+.dir{
+  position: absolute;
+  bottom: 1000px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 80%;
+  font-family: ChampagneLimousines;
+  font-weight: bolder;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(92, 75, 49);
+  padding: 30px;
+  color: rgb(255, 231, 153);
+  border-radius: 5px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+  0 2px 2px 0 rgba(0, 0, 0, 0.14),
+  0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  opacity: 1;
+  transition: all 1s ease-in-out;
+}
+.txtUbi{
+  width: 100px;
+  text-align: center;
+}
+.gogleMap{
+  margin-top: 5px;
+}
+.closeUbi{
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  font-size: 25px;
+  font-weight: bolder;
+}
+/**** PORTADA ****/
 </style>
 </head>
 <body onload="init_m()">
@@ -44,21 +205,21 @@
 <div id="datos" data-id="" data-nom="" data-msa=""></div>
 <div id="conf"></div>
 
-
 <div id="intro" class="intro">
+<div class="introContend">
 <div class="txt1 txtCentro">
   <div>Nuestra</div>
   <div class="boda">Boda</div>
 </div>
 <div class="txt1 invitado">
-    <div class="txtsub2"><div class="txtSub">El Matrimonio </div><div> : las Raices son profundas</div></div>
-    <div>El pacto es solido, el amor es dulce</div>
-    <div>la vida es dura</div>
-    <div class="txtSub">Dios es Bueno</div>
+  <div class="txtSub">El Matrimonio </div>
+	<div>Las Raices son profundas, El pacto es</div>
+	<div>solido, el amor es dulce, la vida es dura</div>
+  <div class="txtSub">Dios es Bueno</div>
 </div>
 <div class="txt1 click pulse" onclick="animacionIn()">Click</div>
-<svg class="circulo" width="100%" height="100%" viewBox="0 0 1080 1920" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
-    <g transform="matrix(1.19003,0,0,1.25848,-102.614,-215.977)">
+<svg class="circulo" viewBox="0 0 1080 1920" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+  <g transform="matrix(1.19003,0,0,1.25848,-102.614,-215.977)">
         <g transform="matrix(1.2963,0,0,1.2963,-169.057,-384.617)">
             <g>
                 <clipPath id="_clip1">
@@ -603,8 +764,9 @@
                 </g>
             </g>
         </g>
-    </g>
+  </g>
 </svg>
+</div>
 </div>
 
 <div id="portada" class="portada">
@@ -626,16 +788,12 @@
   </div>
   <div>2023</div>
 </div>
-<div>
-
+<div class="txt1 btnMenu">
+  <div onclick="ubicacion()">UBICACION</div>
+  <div onclick="link('confirmar')">CONFIRMA TU ASISTENCIA</div>
+  <div onclick="link('informacion')">CRONOGRAMA</div>
 </div>
- 
-<div onclick="ubicacion()" class="txt1 ubic">UBICACION</div>
-<div onclick="link('confirmar')" class="txt1 asit">CONFIRMA TU ASISTENCIA</div>
-<div onclick="link('informacion')" class="txt1 cron">CRONOGRAMA</div>
-
-
-<svg class="cuadrado" width="100%" height="100%" viewBox="0 0 940 1960" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+<svg class="cuadrado" viewBox="0 0 940 1960" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
     <g transform="matrix(0.996072,0,0,0.996072,-101.282,294.02)">
         <path d="M928.117,1510.99C931.603,1505.88 938.575,1495.65 944.158,1488.24C949.796,1480.76 957.379,1472.44 961.948,1466.08C965.584,1461.01 969.337,1453.92 971.573,1450.04C972.938,1447.66 974.556,1444.38 975.364,1442.75" style="fill:none;stroke:rgb(176,142,107);stroke-width:1.25px;"/>
         <path d="M1005.15,1299.1C1005.52,1291.77 1006.25,1277.11 1006.98,1270.3C1007.41,1266.23 1008.33,1262.19 1009.53,1258.27C1011.05,1253.29 1013.59,1246.24 1016.09,1240.41C1018.64,1234.45 1021.92,1228.13 1024.84,1222.54C1027.61,1217.24 1031.1,1211.55 1033.59,1206.87C1035.76,1202.79 1038.01,1198.74 1039.79,1194.47C1041.73,1189.79 1044.08,1182.46 1045.25,1178.8" style="fill:none;stroke:rgb(176,142,107);stroke-width:1.25px;"/>
@@ -853,7 +1011,6 @@
         <path d="M804.928,1110.86C809.914,1113.45 819.886,1118.63 827.258,1122.71C836.448,1127.8 849.312,1134.86 860.068,1141.39C872.068,1148.68 888.626,1159.24 899.259,1166.45C907.706,1172.19 915.008,1179.61 923.867,1184.68C933.285,1190.08 944.528,1195.82 955.766,1198.81C967.462,1201.92 985.184,1202.89 994.045,1203.37" style="fill:none;stroke:rgb(176,142,107);stroke-width:1.25px;"/>
     </g>
 </svg>
-
 </div>
 
 <div class="dir" id="dir">

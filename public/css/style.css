@@ -67,55 +67,6 @@ body{
   transform: translateX(-50%);
   color: rgb(212,192,154);
 }
-/**** INTRO ****/
-.circulo{
-  margin-top: -80px;
-}
-.intro{
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgb(146, 120, 81);
-  z-index: 10;
-  width: 100%;
-  height: 100vh;
-}
-.txtCentro{
-  width: 300px;
-  top: 170px;
-  font-family: SalingCinta;
-  font-weight: 500;
-  font-size: 100px;
-  line-height: 60px;
-}
-.boda{margin-left: 60px;}
-.invitado{
-  width: 100%;
-  top: 430px;
-  font-family: ChampagneLimousines;
-  font-weight: bold;
-  font-size: 17px;
-  padding: 5px;
-}
-.invitado>div{ padding: 5px; }
-.txtsub2{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.txtSub{ 
-  font-family: SalingCinta;
-  font-size: 40px;
-}
-.click{
-  width: 300px;
-  top: 590px;
-  font-family: SalingCinta;
-  font-weight: 500;
-  font-size: 60px;
-  cursor: pointer;
-}
-/**** INTRO ****/
 .pulse{
   animation: pulse 2s infinite ease-in-out;
 }
@@ -134,118 +85,7 @@ body{
   0% { opacity: 1; }  
   100% { opacity: 0; display: none;}
 }
-/**** PORTADA ****/
-.cuadrado{ margin-top: 0px;}
-.portada{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  opacity: 0;
-}
-.titulo1{
-  width: 300px;
-  top: 100px;
-  font-family: ChampagneLimousines;
-  font-weight: 500;
-}
-.nombre{
-  width: 300px;
-  top: 170px;
-  font-family: SalingCinta;
-  font-weight: 500;
-  font-size: 100px;
-  line-height: 60px;
-}
-.and{ margin-left: 50px; }
-.fecha{
-  width: 300px;
-  top: 390px;
-  font-family: ChampagneLimousines;
-  font-weight: 500;
-  color: rgb(212,192,154);
-}
-.dia{
-  display: flex;
-  justify-content: center;
-  margin: 7px;
-}
-.num{
-  font-size: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.cua{
-  width: 70px;
-  border-top: 1.5px rgb(212,192,154) solid;
-  border-bottom: 1.5px rgb(212,192,154) solid;
-  padding-top: 6px;
-  padding-bottom: 0px;
-}
 
-.ubic{
-  width: fit-content;
-  top: 540px;
-  font-family: ChampagneLimousines;
-  font-size: 15px;
-  cursor: pointer;
-}
-.asit{
-  width: fit-content;
-  top: 570px;
-  font-family: ChampagneLimousines;
-  font-size: 15px;
-  cursor: pointer;
-}
-.cron{
-  width: fit-content;
-  top: 600px;
-  font-family: ChampagneLimousines;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.dir{
-  position: absolute;
-  bottom: 1000px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  width: 80%;
-  font-family: ChampagneLimousines;
-  font-weight: bolder;
-  font-size: 18px;
-  display: flex;
-  justify-content: space-around;
-  background-color: rgb(92, 75, 49);
-  padding: 30px;
-  color: rgb(255, 231, 153);
-  border-radius: 5px;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-  0 2px 2px 0 rgba(0, 0, 0, 0.14),
-  0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  opacity: 1;
-  transition: all 1s ease-in-out;
-}
-
-.txtUbi{
-  width: 100px;
-  text-align: center;
-}
-.gogleMap{
-  margin-top: 5px;
-}
-.closeUbi{
-  position: absolute;
-  right: 10px;
-  top: 0px;
-  font-size: 25px;
-  font-weight: bolder;
-}
-/**** PORTADA ****/
 .aparecer{
   animation-name: animacionApa;
   animation-timing-function: ease-in-out;
@@ -1024,19 +864,7 @@ th {
 ::-webkit-inner-spin-button { display:none;}
 ::-webkit-calendar-picker-indicator { opacity:0; cursor:pointer;}
 /******* customise calendario *******/
-/* for custom scrollbar for webkit browser*/
-::-webkit-scrollbar {
-  width: 1px;
-} 
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 1px rgb(126, 126, 126);
-  border-radius: 5px; 
-} 
-::-webkit-scrollbar-thumb {
-  -webkit-box-shadow: inset 0 0 1px rgb(0, 0, 0); 
-  border-radius: 5px; 
-}
-/* for custom scrollbar for webkit browser*/
+
 .formularioV1{
   max-width: 400px;
   margin: auto;
