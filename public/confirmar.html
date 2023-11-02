@@ -306,8 +306,9 @@ svg{width: 100vw;height: 99vh;}
 </svg>
 <div class="graciasMod" id="graciasMod">
 	<div class="closeUbi" onclick="closeUbi()">x</div>
+  <div>Gracias por confirmar tu asistencia. </div>
+  <br>
   <div>
-    Gracias por confirmar tu asistencia. 
     Queremos que está sea una linda experiencia y la disfrutes cómodamente, 
     por lo que te rogamos que no compartas la invitación con otra persona.
   </div> 
@@ -351,7 +352,7 @@ function init_m(){
     document.getElementById("nom").textContent = storage("nom")
   }
   localStorage.setItem("confirmado","")
-  
+  //graciasMod() 
 }
 </script>
 </body>
