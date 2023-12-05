@@ -37,7 +37,7 @@ textarea {
   <button class="btn-material" id="resetBoot" onclick="activarBoot()">Reiniciar Boot</button>
 </div>
 <div class="texto">
-  <textarea id="inputMsg" onkeyup="saveTxtInv(event)"></textarea>
+  <textarea id="inputMsg" onkeyup="saveTxtInv()"></textarea>
 </div>
 
 <div class="formularioV1">
@@ -53,6 +53,14 @@ textarea {
 <div class="botones">
   <a class="btn-material" href="../invitados/invitadosSendMsg.html">Enviar Mensaje</a>
 </div>
+<br><br><br><br>
+<div class="texto">
+  <textarea id="inputMsgMesa" onkeyup="saveTxtInv()"></textarea>
+</div>
+<div class="botones">
+  <a class="btn-material" href="../invitados/invitadosSendMsgMesa.html">Enviar Numero de mesa</a>
+</div>
+
 <script src="../js/mainDB.js"></script>	
 <script src="../js/apiBakend.js"></script>	
 
@@ -119,9 +127,11 @@ function senManual(){
 }
 
 async function saveTxtInv(e){
-  let tx = e.target.value
+  let tx = document.getElementById("inputMsg").value
+  let mesa = document.getElementById("inputMsgMesa").value
   localStorage.setItem("inputMsg",tx)
-  await sendMessage(JSON.stringify({"rut":"writeMsgInv","dat":tx}))
+  localStorage.setItem("inputMsgMesa",mesa)
+  await sendMessage(JSON.stringify({"rut":"writeMsgInv","dat":tx,"mesa":mesa}))
 }
 
 function init_m(){

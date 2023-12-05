@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es" >
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Mensaje Mesa</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<style>
+.btn-material{color: black;}  
+.number{width: 30px;transform: translateY(-5px);}
+.mesa{text-align: center;}
+</style>
+<body onload="startDB()">
+<div class="conteMenu">
+  <span class="icon back" onclick="window.history.back()"></span>
+  <div onclick="sendWatBoot()" class="btn-material">Enviar Numero Mesa Boot</div> 
+  <span id="conection" class="icon cloudDowGrend" onclick="sincroBD('invitados','m')"></span>
+</div>
+
+<div class="buscador">
+  <input class="input_ef" type="text" id="buscar" onkeyup="filtroBus()" placeholder="Buscar por Nombre">  
+</div>
+
+<div class="contenTable" >
+  <table>
+    <thead>
+      <tr>
+        <th>N°</th>
+        <th></th>
+        <th>Nombre</th>
+        <th>Celular</th>
+        <th>Mesa</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="listaDitem"></tbody>
+  </table>
+</div>
+
+<script src="/js/apiBakend.js"></script>
+<script src="/js/mainDB.js"></script>
+<script>
+var sendList = []
+var items = []
+async function renderTab(){
+  sendList = []
+  let dat = await read_DB("invitados")
+  let outerHTML = '';
+  let l = 0
+  for (let i = 0; i < dat.length; i++) {
+    let el = dat[i];
+    let cn
+    let ck
+    if(el.con){
+      l += 1
+      sendList.push(el.id)
+      ck="checked"
+      outerHTML+=`
+      <tr id="${el.id}">
+        <td>${l}</td>
+        <td><input ${ck} onchange="chageList(event,'${el.id}')" type="checkbox"/></td>
+        <td>${el.nom}</td>
+        <td>${el.cel}</td>
+        <td class="mesa">${el.msa}</td>
+        <td>
+          <span onclick="sendInvitacion('${el.cel}','${el.msa}')" class="icon whatsaApp">
+        </td>
+      </tr>`
+      items.push({"id":el.id,"txt":el.nom}) 
+    }else{ ck=""; continue; }    
+  }
+  document.getElementById("listaDitem").innerHTML = outerHTML 
+}
+
+/*send boot wat*/
+function chageList(e,id){
+  if(e.target.checked){ sendList.push(id) }else{ sendList=sendList.filter(a=>a!=id) }
+}
+async function sendWatBoot(){
+  loadData()
+  let qr = await apiPost(urlBoot+"/scan-qr",{})
+  if(qr.qr=="connected"){
+    for (let i = 0; i < sendList.length; i++) {
+      const id = sendList[i];
+      let inv = await read_ID_DB(id,'invitados')
+      let input = localStorage.getItem("msgInvMesa").replace("NN",inv.msa);
+      let dat = {"message":input,"number":inv.cel}
+      let rs = await apiPost(urlBoot+'/send-message',dat)
+      console.log(rs)
+    }
+    successDat("r")
+  }else{
+    successDat()
+    alert("boot no iniciado")
+  }  
+}
+/*send boot wat*/
+
+function sendInvitacion(cel,msa){
+  let input = localStorage.getItem("msgInvMesa").replace("NN",msa);
+  let res = encodeURIComponent(input);
+  let msg = 'https://api.whatsapp.com/send?text='+res+'&phone=+591'+cel;
+  var a = document.createElement("a");
+  a.href = msg
+  a.click()
+}
+function init_m(){  
+  renderTab() 
+  openSocket("sincINV");
+}
+</script>
+</body>
+</html>

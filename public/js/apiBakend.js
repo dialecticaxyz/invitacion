@@ -100,6 +100,8 @@ function readMessage(e){
   if(dat.rut=="readMsgInv"){
     document.getElementById("inputMsg").value = dat.dat
     localStorage.setItem("inputMsg",dat.dat)
+    document.getElementById("inputMsgMesa").value = dat.mesa
+    localStorage.setItem("msgInvMesa",dat.mesa)
     successDat()
   }
   //if(sinAct=="sincINV"){ sincroBD('invitados','r') }

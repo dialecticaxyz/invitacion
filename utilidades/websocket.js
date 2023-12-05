@@ -16,13 +16,15 @@ function handleWs(ws, request) {
     let data = JSON.parse(d); //console.log(data);
 
     let tx = localStorage.getItem('msgInv')
-    if(data.rut=="readMsgInv"){ ws.send(JSON.stringify({"rut":"readMsgInv","dat":tx})); return;}
+    let mesa = localStorage.getItem('msgInvMesa')
+    if(data.rut=="readMsgInv"){ ws.send(JSON.stringify({"rut":"readMsgInv","dat":tx,"mesa":mesa})); return;}
 
     if(data.rut=="writeMsgInv"){
       for (let c in clients) {// brocast
-        if(!(clients[c]==ws)){ clients[c].send(JSON.stringify({"rut":"readMsgInv","dat":data.dat})) }
+        if(!(clients[c]==ws)){ clients[c].send(JSON.stringify({"rut":"readMsgInv","dat":data.dat,"mesa":data.mesa})) }
       }
       localStorage.setItem('msgInv',data.dat)
+      localStorage.setItem('msgInvMesa',data.mesa)
     }
     
   }
